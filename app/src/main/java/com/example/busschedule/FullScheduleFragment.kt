@@ -21,13 +21,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.busschedule.databinding.FullScheduleFragmentBinding
 import com.example.busschedule.viewmodels.BusScheduleViewModel
 import com.example.busschedule.viewmodels.BusScheduleViewModelFactory
-import com.exemple.busschedule.BusStopAdapter
+import com.exemple.busschedule.com.example.busschedule.BusStopAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class FullScheduleFragment: Fragment() {
 
@@ -57,6 +61,12 @@ class FullScheduleFragment: Fragment() {
             )
             view.findNavController().navigate(action)
         })
+        recyclerView.adapter = busStopAdapter
+        lifecycle.coroutineScope.launch{
+            viewModel.fullSchedule().collect(){
+                busStopAdapter.submitList(it)
+            }
+        }
     }
 
     override fun onDestroyView() {

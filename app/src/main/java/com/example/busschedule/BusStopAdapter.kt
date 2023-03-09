@@ -1,4 +1,4 @@
-package com.exemple.busschedule
+package com.exemple.busschedule.com.example.busschedule
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,7 +11,9 @@ import com.example.busschedule.databinding.BusStopItemBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BusStopAdapter(private val onItemClicked: (Schedule) -> Unit) : ListAdapter<Schedule, BusStopAdapter.BusStopViewHolder>(DiffCallback){
+class BusStopAdapter(private val onItemClicked: (Schedule) -> Unit) : ListAdapter<Schedule, BusStopAdapter.BusStopViewHolder>(
+    DiffCallback
+){
 
     companion object{
         private val DiffCallback = object : DiffUtil.ItemCallback<Schedule>(){
@@ -25,7 +27,7 @@ class BusStopAdapter(private val onItemClicked: (Schedule) -> Unit) : ListAdapte
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusStopViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusStopViewHolder {
         val viewHolder = BusStopViewHolder(
             BusStopItemBinding.inflate(
                 LayoutInflater.from(parent.context),
